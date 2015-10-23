@@ -1,0 +1,95 @@
+.hide{
+  display: none;
+}
+#logoMeltsan{
+    position: fixed;
+    top: 10px;
+    left:10px;    
+}
+.twitterWrapper{
+        background: #fff;
+        width: 80%;
+        border-radius: 25px;
+        left: 10%;
+        opacity : 0.8;
+        bottom: 10px;
+        position: fixed;
+        padding-top: 10px;
+}
+.twitterWrapper img{
+    padding-top: 20px;
+    border-radius: 5px;
+    height: 100px;
+}
+
+video#bgvid {
+position: fixed;
+top: 50%;
+left: 50%;
+min-width: 100%;
+min-height: 100%;
+width: auto;
+height: auto;
+z-index: -100;
+-webkit-transform: translateX(-50%) translateY(-50%);
+transform: translateX(-50%) translateY(-50%);
+background-size: cover;
+}
+@font-face {
+    font-family: "HouseGrind";
+    src:url('fonts/Housegrind_Personal_Use_Only.ttf') format('truetype');
+}
+.welcomeWrapper{
+  margin-top: 200px;
+}
+.welcomeLegendNombre{
+z-index: 10;
+position: relative;
+width: 100%;
+color: #FFF;
+font-size: 5.5vw;
+margin-left: auto;
+margin-right: auto;
+text-shadow: 3px 3px #000;
+text-align: center;
+margin-top: -100px;
+letter-spacing:2px;
+font-family: "HouseGrind";
+#font-family: "Helvetica";
+}
+.autorClass{
+  z-index: 10;
+  position: relative;
+  width: 100%;
+  color: #FFF;
+  font-size: 4.5vw;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 4px 4px #000;
+  text-align: right;
+  margin-top: -20px;
+  letter-spacing:2px;
+  font-family: "HouseGrind";
+}
+.welcomeLegendHead{
+z-index: 10;
+position: relative;
+width: 100%;
+color: #FFF;
+font-size: 10.5vw;
+margin-left: auto;
+margin-right: auto;
+text-shadow: 4px 4px #000;
+text-align: center;
+letter-spacing:2px;
+font-family: "HouseGrind";
+}
+.logo{
+  display: none;
+height: 10%;
+z-index: 10;
+background-color: #000;
+width: 100%;
+margin: 0 !important;
+padding: 0 !important;
+}

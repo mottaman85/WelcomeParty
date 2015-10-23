@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/welcome.css" media="screen" title="no title" charset="utf-8"/>
+    <title>Hola</title>
+  </head>
+  <body>
+    <div class="logo">
+      <img src="https://www.ebus.mx/documents/42784/0/logoEBUS.png/f71144f1-3901-4860-8562-16e3d7989efd?t=1424230881353" alt="" />
+    </div>
+
+    <div class="twitterWrapper" style="display:none">
+        <div class="container-fluid" >
+            <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    <img class='img-thumbnail' id="profilePhoto" src="http://pbs.twimg.com/profile_images/1849957223/Let_the_Fish_Go_Stan_Rams_Paint_ARt_2010_19_02_2010_normal.jpg" alt="" />
+                </div>
+                <div class="col-md-10">
+                    <h3 id="screen_name"> mottaman85 <small id="t_name">Paulino Mota</small></h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <blockquote>
+                        <p id="t_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="welcomeWrapper" style="margin-top:400px;">
+      <p id="nombreMensaje" class="welcomeLegendNombre"></p>
+      <p id="autorText" class="autorClass"></p>
+    </div>
+    <video  id="bgvid" loop>
+      <source id="tv_main_channel" src="/videos/bacalar.mp4" type="video/mp4">
+    </video>
+  </body>
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var messajeStack =[];
+    io = io.connect();
+    io.emit('ready');
+    io.on('message', function(data){
+      console.debug(data);
+        if(data.nombre == "Rainier" || data.nombre =="dorian"){
+          $("#bgvid").find("#tv_main_channel").attr("src", "videos/welcomeJungle.mp4");
+          var videoBlock = $("#bgvid");
+          videoBlock.load();
+      }else if(data.nombre == "Paulino" || data.nombre =="paulino"){
+        $("#bgvid").find("#tv_main_channel").attr("src", "videos/arrives.mp4");
+        var videoBlock = $("#bgvid");
+        videoBlock.load();
+      }
+
+      $("#nombreMensaje").text('');
+      $("#nombreMensaje").show();
+      $("#headMensaje").text(data.head)
+      $("#nombreMensaje").fadeTo( "slow" , 1, function() {
+        showText("#nombreMensaje", data.nombre, 0, 150);
+      });
+
+      setTimeout(function(){
+        $("#nombreMensaje").fadeOut('slow', function(){});
+        $("#headMensaje").fadeOut('slow', function(){});
+        console.log('TimeOut');
+      },30000);
+
+    });
+
+    io.on('messageChangeParty', function(data){
+        console.log("messageChangeParty");
+        console.log(data);
+    if(data.tweet){
+        $(".twitterWrapper").show();
+        $("#profilePhoto").attr('src', data.imgProfile);
+        $("#t_text").text(data.mensaje);
+        $("#screen_name").text(data.profileName);
+        $("#t_name").text(data.nombre);
+    }else{
+        $("#welcomeWrapper").show();
+      $("#nombreMensaje").fadeOut('slow', function(){
+        if(data.autor != null && data.autor.length >0 ){
+            $("#autorText").text("-" + data.autor)
+        }
+        $("#nombreMensaje").text(data.mensaje);
+        $("#nombreMensaje").fadeIn('slow', function(){});
+        $("#autorText").fadeIn('slow', function(){});
+      });
+  }
+
+      });
+      $("#autorText").fadeOut('slow', function(){});
+    io.on('changeVideoSock', function(data){
+      console.log(data);
+      $("#bgvid").find("#tv_main_channel").attr("src", "videos/" + data.videoName);
+      var videoBlock = $("#bgvid");
+      videoBlock.load();
+    });
+
+    io.on('toolsVideo', function(data){
+      switch (data.tipo) {
+        case "pause":
+          $("#bgvid").get(0).pause();
+        break;
+        case "play":
+          $("#bgvid").get(0).play();
+        break;
+
+        default:
+      }
+    });
+
+    var showText = function (target, message, index, interval) {
+      try{
+        console.log(mensaje);
+      if (index < message.length) {
+        $(target).append(message[index++]);
+        setTimeout(function () { showText(target, message, index, interval); }, interval);
+      }
+    }catch(e){}
+  }
+  </script>
+  <script type="text/javascript">
+  var video = document.getElementById('bgvid')
+  video.play();
+  document.getElementById('bgvid').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        console.log("Petition");
+        var $video = $.ajax({
+            url: "/messages/nextVideo",
+            contentType: 'application/json',
+            dataType: 'json',
+            type : "POST"
+        })
+        $video.done(function(res, doc){
+            console.log("Return");
+            console.log(res);
+            console.log("videos/" + res.video);
+            $("#bgvid").find("#tv_main_channel").attr("src", "videos/" + res.video);
+            var videoBlock = $("#bgvid");
+            var video = document.getElementById('bgvid')
+            video.load();
+            video.play();
+        });
+    }
+  </script>
+</html>

@@ -1,0 +1,20 @@
+.input-minuta-head{
+    border : 0px solid white;
+    margin-top: 10px;
+    border-bottom: 1px solid #B2B2B2;
+    font-family: courier, 'courier new', monospace;
+    font-size: 18px;
+}
+.noteInputTitle{
+    background : none;
+    border :0px;
+    height: 30px;
+    color: #4c4c4c;
+    font-size: 14px;
+}
+.noteInputContain{
+    background : none;
+    border :0px;
+    height: 30px;
+    font-size: 14px;
+}

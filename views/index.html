@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>OnOffice</title>
+    <link rel="stylesheet" href="/stats/bootstrap/dist/css/bootstrap-theme.min.css"
+     charset="utf-8"/>
+    <link rel="stylesheet" href="/stats/bootstrap/dist/css/bootstrap.min.css"
+    charset="utf-8"/>
+    <link rel="stylesheet" href="/css/main.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body ng-app="webapp">
+
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#/">Home</a>
+          <a class="blog-nav-item" href="/welcome">Welcome</a>
+          <a class="blog-nav-item" href="#/messages">Mensajes</a>
+          <a class="blog-nav-item" href="#/usuarios">Usuarios</a>
+          <a class="blog-nav-item" href="#/settings">Settings</a>
+        </nav>
+      </div>
+    </div>
+
+    <div ng-view class="container">
+
+    </div>
+
+
+  </body>
+  <script type="text/javascript" src="/stats/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="/stats/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/stats/angular/angular.min.js"></script>
+  <script type="text/javascript" src="/stats/angular-route/angular-route.min.js"></script>
+  <script type="text/javascript" src="/app.js"></script>
+  <script type="text/javascript" src="/controller/home.js"></script>
+  <script type="text/javascript" src="/controller/usuarios.js"></script>
+  <script type="text/javascript" src="/controller/settings.js"></script>
+  <script type="text/javascript" src="/controller/messages.js"></script>
+
+  <!-- SummerNote -->
+ <script src="bower_components/angular-summernote/dist/angular-summernote.min.js"></script>
+ <script src="bower_components/summernote/dist/summernote.js"></script>
+
+ <link rel="stylesheet" href="bower_components/summernote/dist/summernote.css">
+
+
+  <script type="text/javascript">
+    $('ready', function(){
+      $('.blog-nav-item').on('click', function(){
+        $('.blog-nav-item').removeClass('active');
+        $(this).addClass('active');
+      });
+    })
+  </script>
+
+</html>
